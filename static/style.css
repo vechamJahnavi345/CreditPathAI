@@ -1,0 +1,446 @@
+/* ================
+   CREDIT PATH AI 
+   ================ */
+
+   * {
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #e9eef4 0%, #f7f9fc 100%);
+    color: #1f2a44;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  
+  /* ===== HEADER / NAVBAR ===== */
+  header {
+    background: linear-gradient(135deg, #004b87 0%, #007bff 100%);
+    color: #fff;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  nav a,
+  nav button {
+    color: #ffffff;
+    background: none;
+    border: none;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.1s ease;
+  }
+  
+  nav a:hover,
+  nav button:hover {
+    color: #ffd700;
+    transform: scale(1.05);
+  }
+  
+  nav a.active {
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 4px;
+  }
+  
+  /* ===== MAIN CONTAINER ===== */
+  main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ===== GRID LAYOUT ===== */
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+  
+  @media (max-width: 900px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* ===== FORM ELEMENTS ===== */
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #222;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+    outline: none;
+  }
+  
+  /* ===== BUTTONS ===== */
+  button {
+    background-color: #004b87;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #006edc;
+    box-shadow: 0 3px 10px rgba(0, 110, 220, 0.3);
+  }
+  
+  /* ===== BORROWER INPUT CARDS ===== */
+  .borrower {
+    background: linear-gradient(145deg, #f8fbff, #edf2f7);
+    border: 1px solid #d0d8e0;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .borrower h3 {
+    color: #004b87;
+    border-left: 4px solid #004b87;
+    padding-left: 8px;
+    margin-bottom: 15px;
+  }
+  
+  /* ===== RESULT CARDS ===== */
+  #results {
+    margin-top: 20px;
+  }
+  
+  .result-card {
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    background: #ffffff;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    border-left: 8px solid transparent;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  .result-card.low {
+    border-left-color: #2ecc71;
+    background: #ecf9f1;
+  }
+  
+  .result-card.medium {
+    border-left-color: #ffc107;
+    background: #fff8e5;
+  }
+  
+  .result-card.high {
+    border-left-color: #dc3545;
+    background: #fdecea;
+  }
+  
+  .result-card h3 {
+    margin-top: 0;
+    color: #003366;
+  }
+  
+  /* ===== TABLE (Logs) ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  th,
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dce3eb;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  
+  th {
+    background: #004b87;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f7f9fc;
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 60px;
+    padding: 20px 0;
+    background: #f8f9fb;
+    border-top: 1px solid #d1dae6;
+  }
+  
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+/* ---------- AUTH PAGE ---------- */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #002b5c 0%, #004b87 50%, #007bff 100%);
+  background-attachment: fixed;
+}
+
+.auth-card {
+  width: 360px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 35px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  animation: fadeIn 0.5s ease;
+}
+
+.auth-card h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.auth-card p {
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.auth-card label {
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.auth-card button {
+  width: 100%;
+  background-color: #004b87;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.auth-card button:hover {
+  background-color: #0059c9;
+}
+
+.auth-switch {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.auth-switch a {
+  color: #004b87;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+
+.success {
+  color: green;
+  font-weight: 500;
+}
+
+.error {
+  color: red;
+  font-weight: 500;
+}
+
+/* ===== HOME PAGE STYLING ===== */
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #004b87 0%, #007bff 100%);
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 0px 0px 0px 0px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.hero-content h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.hero-content p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1rem;
+  opacity: 0.95;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  margin-top: 25px;
+}
+
+.hero-buttons button {
+  margin: 10px;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: #ffd700;
+  color: #002b5c;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.hero-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.hero-buttons .outline {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.hero-buttons .outline:hover {
+  background-color: #fff;
+  color: #004b87;
+}
+
+/* Dashboard Cards */
+.dashboard {
+  max-width: 1100px;
+  margin: 60px auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 20px;
+}
+
+.card {
+  flex: 1 1 300px;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  text-align: left;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid #004b87;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  color: #004b87;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.card button {
+  background-color: #004b87;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #007bff;
+}
+
