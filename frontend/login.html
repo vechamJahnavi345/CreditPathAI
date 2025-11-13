@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | CreditPathAI</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" id="loginCard">
+      <h2>Welcome Back 👋</h2>
+      <p>Sign up/login to access your CreditPathAI dashboard</p>
+
+      <label>Email Address</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com" required />
+
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" required />
+
+      <button onclick="login()">Login</button>
+      <p class="auth-switch">
+        Don’t have an account? 
+        <a href="#" onclick="toggleAuth('signup')">Sign Up</a>
+      </p>
+      <p id="loginError" class="error"></p>
+    </div>
+
+    <div class="auth-card hidden" id="signupCard">
+      <h2>Create Account 🧾</h2>
+      <p>Register to start predicting borrower risk</p>
+
+      <label>Full Name</label>
+      <input type="text" id="signupName" placeholder="John Doe" required />
+
+      <label>Email Address</label>
+      <input type="email" id="signupEmail" placeholder="you@example.com" required />
+
+      <label>Password</label>
+      <input type="password" id="signupPassword" placeholder="Create password" required />
+
+      <button onclick="signup()">Sign Up</button>
+      <p class="auth-switch">
+        Already have an account? 
+        <a href="#" onclick="toggleAuth('login')">Login</a>
+      </p>
+      <p id="signupMsg" class="success"></p>
+    </div>
+  </div>
+
+  <footer>© 2025 CreditPathAI — Securing Smarter Lending Decisions</footer>
+
+  <script>
+    async function signup() {
+      const name = document.getElementById("signupName").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const password = document.getElementById("signupPassword").value.trim();
+    
+      if (!name || !email || !password) {
+        document.getElementById("signupMsg").textContent = "Please fill in all fields.";
+        document.getElementById("signupMsg").style.color = "red";
+        return;
+      }
+    
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+    
+      const res = await fetch("/signup", { method: "POST", body: formData });
+      const data = await res.json();
+    
+      if (res.ok) {
+        document.getElementById("signupMsg").style.color = "green";
+        document.getElementById("signupMsg").textContent = data.message;
+        setTimeout(() => toggleAuth("login"), 1500);
+      } else {
+        document.getElementById("signupMsg").style.color = "red";
+        document.getElementById("signupMsg").textContent = data.detail;
+      }
+    }
+    
+    async function login() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+    
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+    
+      const res = await fetch("/login", { method: "POST", body: formData });
+      const data = await res.json();
+    
+      if (res.ok) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("activeUser", data.email);
+        localStorage.setItem("userName", data.name);
+        window.location.href = "/home";
+      } else {
+        document.getElementById("loginError").innerText = data.detail;
+      }
+    }
+    
+    function toggleAuth(mode) {
+      document.getElementById("loginCard").classList.toggle("hidden", mode === "signup");
+      document.getElementById("signupCard").classList.toggle("hidden", mode === "login");
+    }
+    </script>
+    
+</body>
+</html>

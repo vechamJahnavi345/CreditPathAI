@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CreditPathAI | Home</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body onload="checkLogin()">
+  <!-- HEADER NAVBAR -->
+  <header>
+    <h1>CreditPathAI</h1>
+    <nav>
+      <a href="/home" class="active">Home</a>
+      <a href="/predict_page">Predict</a>
+      <a href="/model">Model Info</a>
+      <a href="/logs_page">Logs</a>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Welcome, <span id="userName">User</span> 👋</h2>
+      <p>
+        Empower your credit decisions with <strong>AI-powered predictions</strong>.<br />
+        Manage risk, monitor performance, and stay ahead with CreditPathAI.
+      </p>
+      <div class="hero-buttons">
+        <button onclick="window.location.href='/predict_page'">Start Prediction</button>
+        <button class="outline" onclick="window.location.href='/model'">View Model Insights</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD CARDS -->
+  <main class="dashboard">
+    <div class="card">
+      <h3>⚡ Quick Prediction</h3>
+      <p>Perform instant borrower risk predictions using LightGBM model.</p>
+      <button onclick="window.location.href='/predict_page'">Go →</button>
+    </div>
+
+    <div class="card">
+      <h3>📊 Model Insights</h3>
+      <p>View accuracy, feature importance, and SHAP explainability reports of the model.</p>
+      <button onclick="window.location.href='/model'">View →</button>
+    </div>
+
+    <div class="card">
+      <h3>🧾 My Logs</h3>
+      <p>Track your past predictions, borrower results, and recommended actions.</p>
+      <button onclick="window.location.href='/logs_page'">Check →</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 CreditPathAI — AI-Powered Credit Risk Analytics</p>
+  </footer>
+
+  <script>
+    function checkLogin() {
+      if (localStorage.getItem("loggedIn") !== "true") {
+        window.location.href = "/frontend/login.html";
+      }
+      document.getElementById("userName").textContent =
+        localStorage.getItem("userName") || "User";
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/frontend/login.html";
+    }
+  </script>
+</body>
+</html>

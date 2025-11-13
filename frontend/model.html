@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Model Info - CreditPathAI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body onload="checkLogin()">
+  <header>
+  <h1>Model Information</h1>
+  <nav>
+    <a href="/home">Home</a>
+    <a href="/predict_page">Predict</a>
+    <a href="/model" class="active">Model Info</a>
+    <a href="/logs_page">Logs</a>
+    <button onclick="logout()">Logout</button>
+  </nav>
+  </header>
+  <div class="borrower">
+    <h3>Model: LightGBM</h3>
+    <ul>
+      <li>AUC-ROC: 0.729</li>
+      <li>Accuracy: 81.2%</li>
+      <li>Key Features: int_rate, dti, annual_inc, revol_util, loan_amnt</li>
+      <li>Explainability: SHAP feature importance</li>
+    </ul>
+  </div>
+
+  <footer>
+    © 2025 CreditPathAI – All Rights Reserved.
+  </footer>
+  
+  <script>
+    function checkLogin(){
+      if(localStorage.getItem('loggedIn')!=='true'){window.location.href='/frontend/login.html';}
+    }
+    function logout(){
+      localStorage.removeItem('loggedIn');
+      window.location.href='/frontend/login.html';
+    }
+  </script>
+</body>
+</html>
