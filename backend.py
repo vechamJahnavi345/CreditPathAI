@@ -127,9 +127,9 @@ def preprocess_api_data(df: pd.DataFrame) -> pd.DataFrame:
 
 # ---- Risk mapping ----
 def map_risk_action(prob: float):
-    if prob < 0.3:
+    if prob < 0.2:
         return "Low risk", "Send reminder"
-    elif prob < 0.7:
+    elif prob < 0.5:
         return "Medium risk", "Call borrower"
     else:
         return "High risk", "Prioritize collection / restructure loan"
