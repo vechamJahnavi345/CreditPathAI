@@ -44,11 +44,11 @@
   <script src="/static/script.js"></script>
   <script>
     function checkLogin(){
-      if(localStorage.getItem('loggedIn')!=='true'){window.location.href='login.html';}
+      if(localStorage.getItem('loggedIn')!=='true'){window.location.href='/frontend/login.html';}
     }
     function logout(){
       localStorage.removeItem('loggedIn');
-      window.location.href='login.html';
+      window.location.href='/frontend/login.html';
     }
   </script>
 </body>
